@@ -12,15 +12,15 @@ def get_uniq_lines(content) -> Dict[str, int]:
     
     dic_lines = {}
     for line in content.decode('utf-8').split('\n'):
-        if line in dic_lines.keys:
+        if line in dic_lines.keys():
             dic_lines[line] += 1
         else:
-            dic_lines.add({line, 1})
+            dic_lines[line] = 1
     
     uniq_lines = {}
-    for key, value in dic_lines:
+    for key, value in dic_lines.items():
         if value == 1:
-            uniq_lines.add({key, value})
+            uniq_lines[key] = value
 
     return uniq_lines
      
@@ -51,8 +51,10 @@ def main():
          print(f"Something went wrong when reading the file {args.filename}")
          exit(1)
 
-    
+     uniq_lines = get_uniq_lines(content)
 
+     for key in uniq_lines.keys():
+         print(key, file=sys.stdout)
 
 
 if __name__ == '__main__':
