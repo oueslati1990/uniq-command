@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "muniq"
+version = "0.1.0"
+description = "A Python implementation of the Unix uniq command"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Mohamed Oueslati", email = ""}
+]
+
+[project.scripts]
+muniq = "muniq:main"
