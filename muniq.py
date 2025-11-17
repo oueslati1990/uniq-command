@@ -1,28 +1,23 @@
 import argparse
 import sys
-from typing import Dict
+from typing import List
 
 def read_file(filename):
      """Read file"""
      with open(filename, 'rb') as f:
           return f.read()
      
-def get_uniq_lines(content) -> Dict[str, int]:
+def get_uniq_lines(content) -> List[str]:
     """Retrieve unique lines from the content of the input"""
     
-    dic_lines = {}
-    for line in content.decode('utf-8').split('\n'):
-        if line in dic_lines.keys():
-            dic_lines[line] += 1
-        else:
-            dic_lines[line] = 1
-    
     uniq_lines = {}
-    for key, value in dic_lines.items():
-        if value == 1:
-            uniq_lines[key] = value
+    for line in content.decode('utf-8').split('\n'):
+        if line in uniq_lines.keys():
+            uniq_lines[line] += 1
+        else:
+            uniq_lines[line] = 1
 
-    return uniq_lines
+    return uniq_lines.keys()
      
 def main():
      """
@@ -53,7 +48,7 @@ def main():
 
      uniq_lines = get_uniq_lines(content)
 
-     for key in uniq_lines.keys():
+     for key in uniq_lines:
          print(key, file=sys.stdout)
 
 
