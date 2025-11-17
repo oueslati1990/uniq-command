@@ -10,14 +10,14 @@ def read_file(filename):
 def get_uniq_lines(content) -> List[str]:
     """Retrieve unique lines from the content of the input"""
     
-    uniq_lines = {}
+    dict_lines = {}
     for line in content.decode('utf-8').split('\n'):
-        if line in uniq_lines.keys():
-            uniq_lines[line] += 1
+        if line in dict_lines.keys():
+            dict_lines[line] += 1
         else:
-            uniq_lines[line] = 1
+            dict_lines[line] = 1
 
-    return uniq_lines.keys()
+    return dict_lines.keys()
      
 def main():
      """
@@ -48,8 +48,8 @@ def main():
 
      uniq_lines = get_uniq_lines(content)
 
-     for key in uniq_lines:
-         print(key, file=sys.stdout)
+     for line in uniq_lines:
+         print(line, file=sys.stdout)
 
 
 if __name__ == '__main__':
