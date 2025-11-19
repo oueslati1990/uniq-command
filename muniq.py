@@ -11,10 +11,7 @@ def get_uniq_lines(content) -> Dict[str, int]:
     """Retrieve unique lines from the content of the input"""
     dict_lines = {}
     for line in content.decode('utf-8').split('\n'):
-        if line in dict_lines.keys():
-            dict_lines[line] += 1
-        else:
-            dict_lines[line] = 1
+        dict_lines[line] = dict_lines.get(line, 0) + 1
 
     return dict_lines
 
