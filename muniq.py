@@ -9,7 +9,6 @@ def read_file(filename):
 
 def get_uniq_lines(content) -> List[str]:
     """Retrieve unique lines from the content of the input"""
-
     dict_lines = {}
     for line in content.decode('utf-8').split('\n'):
         if line in dict_lines.keys():
@@ -18,6 +17,18 @@ def get_uniq_lines(content) -> List[str]:
             dict_lines[line] = 1
 
     return dict_lines.keys()
+
+def write_to_output(output_file, uniq_lines):
+    """Write output"""
+    if isinstance(output_file, str):
+        # Output to file
+        with open(output_file, 'w') as f:
+            for line in uniq_lines:
+                print(line, file=f)
+    else:
+        # Output to stdout
+        for line in uniq_lines:
+            print(line, file=output_file)
 
 def main():
     """
@@ -63,17 +74,7 @@ def main():
         exit(1)
 
     uniq_lines = get_uniq_lines(content)
-
-    # Write output
-    if isinstance(output_file, str):
-        # Output to file
-        with open(output_file, 'w') as f:
-            for line in uniq_lines:
-                print(line, file=f)
-    else:
-        # Output to stdout
-        for line in uniq_lines:
-            print(line, file=output_file)
+    write_to_output(output_file, uniq_lines)
 
 
 if __name__ == '__main__':
