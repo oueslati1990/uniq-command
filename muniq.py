@@ -1,13 +1,13 @@
 import argparse
 import sys
-from typing import List
+from typing import Dict
 
 def read_file(filename):
     """Read file"""
     with open(filename, 'rb') as f:
         return f.read()
 
-def get_uniq_lines(content) -> List[str]:
+def get_uniq_lines(content) -> Dict[str, int]:
     """Retrieve unique lines from the content of the input"""
     dict_lines = {}
     for line in content.decode('utf-8').split('\n'):
@@ -16,7 +16,7 @@ def get_uniq_lines(content) -> List[str]:
         else:
             dict_lines[line] = 1
 
-    return dict_lines.keys()
+    return dict_lines
 
 def write_to_output(output_file, uniq_lines):
     """Write output"""
@@ -40,6 +40,8 @@ def main():
 
     parser.add_argument('filenames', nargs='*', default=None,
                         help="input file and output file (if exists)")
+    parser.add_argument('-c', '--count', action="store_true", 
+                        help="count number of line appearance in the file")
 
     args = parser.parse_args()
 
@@ -74,7 +76,16 @@ def main():
         exit(1)
 
     uniq_lines = get_uniq_lines(content)
-    write_to_output(output_file, uniq_lines)
+    output_lines = []
+    if args.count:
+        output_lines = [
+            f"{value} {key}"
+            for key, value in uniq_lines.items()
+        ]
+    else:
+        output_lines = uniq_lines
+
+    write_to_output(output_file, output_lines)
 
 
 if __name__ == '__main__':
