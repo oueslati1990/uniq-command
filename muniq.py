@@ -48,6 +48,8 @@ def main():
                         help="input file and output file (if exists)")
     parser.add_argument('-c', '--count', action="store_true", 
                         help="count number of line appearance in the file")
+    parser.add_argument('-d', "--repeated", action="store_true",
+                        help="display only repeated lines")
 
     args = parser.parse_args()
 
@@ -82,16 +84,25 @@ def main():
         exit(1)
 
     uniq_lines = get_uniq_lines(content)
+    lines_to_display = []
+    if args.repeated:
+        lines_to_display = [
+            line
+            for line in uniq_lines if line[1]>1
+        ]
+    else:
+        lines_to_display = uniq_lines
+
     output_lines = []
     if args.count:
         output_lines = [
             f"{line[1]} {line[0]}"
-            for line in uniq_lines
+            for line in lines_to_display
         ]
     else:
         output_lines = [
             line[0]
-            for line in uniq_lines
+            for line in lines_to_display
         ]
 
     write_to_output(output_file, output_lines)
