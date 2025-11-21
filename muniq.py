@@ -50,6 +50,8 @@ def main():
                         help="count number of line appearance in the file")
     parser.add_argument('-d', "--repeated", action="store_true",
                         help="display only repeated lines")
+    parser.add_argument('-u', "--unique", action="store_true",
+                        help="display only the unique lines")
 
     args = parser.parse_args()
 
@@ -89,6 +91,11 @@ def main():
         lines_to_display = [
             line
             for line in uniq_lines if line[1]>1
+        ]
+    elif args.unique:
+        lines_to_display = [
+            line
+            for line in uniq_lines if line[1] == 1
         ]
     else:
         lines_to_display = uniq_lines
