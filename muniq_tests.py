@@ -78,6 +78,15 @@ def test_diplsay_repeated_lines_only():
     lines = stdout.strip().split('\n')
     assert len(lines) == 1, f'Expected one line only, got {len(lines)}'
 
+def test_display_unique_lines_only():
+    """Display unique lines only"""
+    print('\n[Test 6] Testing displaying only the unique lines')
+    stdout, stderr, returncode = run_muniq(['test.txt', '-u'])
+    assert returncode == 0, f'Expected returncode to be 0, got {returncode}'
+    assert stderr == "", f'Expected there are no errors, got {stderr}'
+    lines = stdout.strip().split('\n')
+    assert len(lines) == 5, f'Expected 5 lines, got {len(lines)}'
+
 def main():
     print("=" * 50)
     print("Testing muniq")
@@ -89,6 +98,7 @@ def main():
         test_write_unique_lines_to_file()
         test_display_count_with_lines()
         test_diplsay_repeated_lines_only()
+        test_display_unique_lines_only()
 
         print("\n" + "=" * 50)
         print("✓ All tests passed!")
