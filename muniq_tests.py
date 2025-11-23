@@ -2,6 +2,11 @@
 
 import subprocess
 
+def read_file(filename):
+    """Reading from file"""
+    with open(filename, 'r') as f:
+        return f.read()
+
 def run_muniq(args, input_data=None):
     """
     Helper function to run muniq command with given arguments
@@ -32,6 +37,16 @@ def test_display_unique_read_from_file():
     lines = stdout.strip().split('\n')
     assert len(lines) == 6, f'Expected 6 lines , got {len(lines)}'
 
+def test_display_unique_read_from_stdin():
+    """Display in standard output when reading from standard input"""
+    print("\n[Test 2] Testing reading from standard input and displaying to standard output")
+    input_data = read_file("test.txt")
+    stdout, stderr, returncode = run_muniq([], input_data)
+    assert returncode == 0, f'Expected returncode = 0 , got {returncode}'
+    assert stderr == "", f"Expected no errors , got {stderr}"
+    lines = stdout.strip().split('\n')
+    assert len(lines) == 6, f'Expected 6 lines , got {len(lines)}'
+
 def main():
     print("=" * 50)
     print("Testing muniq")
@@ -39,6 +54,7 @@ def main():
 
     try:
         test_display_unique_read_from_file()
+        test_display_unique_read_from_stdin()
 
         print("\n" + "=" * 50)
         print("✓ All tests passed!")
