@@ -42,7 +42,7 @@ def test_display_unique_read_from_stdin():
     """Display in standard output when reading from standard input"""
     print("\n[Test 2] Testing reading from standard input and displaying to standard output")
     input_data = read_file("test.txt")
-    stdout, stderr, returncode = run_muniq([], input_data)
+    stdout, stderr, returncode = run_muniq(['-'], input_data)
     assert returncode == 0, f'Expected returncode = 0 , got {returncode}'
     assert stderr == "", f"Expected no errors , got {stderr}"
     lines = stdout.strip().split('\n')
@@ -57,6 +57,17 @@ def test_write_unique_lines_to_file():
     assert os.path.exists('out.txt') == True, f'Expected creation of a file out.txt'
     out_content = read_file('out.txt').strip().split('\n')
     assert len(out_content) == 6, f'Expected 6 lines in output, got {len(out_content)}'
+
+def test_display_count_with_lines():
+    """Display the number of line occurence together with the line"""
+    print("\n[Test 4] Testing displaying the number of occurence of a line with the line")
+    stdout, stderr, returncode = run_muniq(['test.txt', '-c'])
+    assert returncode == 0, f'Expected returncode = 0, got {returncode}'
+    assert stderr == "", f'Expected no errors, got {stderr}'
+    lines = stdout.strip().split('\n')
+    assert len(lines) == 6, f'Expected 6 lines , got {len(lines)}'
+    first_line = lines[0].split()
+    assert first_line[0].isdigit(), f'Expected the first part of the line to be an integer'
 
 def main():
     print("=" * 50)
