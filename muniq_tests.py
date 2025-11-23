@@ -51,7 +51,7 @@ def test_display_unique_read_from_stdin():
 def test_write_unique_lines_to_file():
     """Write the output to a file"""
     print("\n[Test 3] Write the output to a file")
-    stdout, stderr, returncode = run_muniq(['test.txt', 'out.txt'])
+    _, stderr, returncode = run_muniq(['test.txt', 'out.txt'])
     assert returncode == 0, f'Expected returncode = 0, got {returncode}'
     assert stderr == "", f'Expected no errors, got {stderr}'
     assert os.path.exists('out.txt') == True, f'Expected creation of a file out.txt'
@@ -65,9 +65,18 @@ def test_display_count_with_lines():
     assert returncode == 0, f'Expected returncode = 0, got {returncode}'
     assert stderr == "", f'Expected no errors, got {stderr}'
     lines = stdout.strip().split('\n')
-    assert len(lines) == 6, f'Expected 6 lines , got {len(lines)}'
+    assert len(lines) == 7, f'Expected 7 lines , got {len(lines)}'
     first_line = lines[0].split()
     assert first_line[0].isdigit(), f'Expected the first part of the line to be an integer'
+
+def test_diplsay_repeated_lines_only():
+    """Display repeated lines only"""
+    print('\n[Test 5] Testing displaying only the repeated lines')
+    stdout, stderr, returncode = run_muniq(['test.txt', '-d'])
+    assert returncode == 0, f'Expected returncode = 0, got {returncode}'
+    assert stderr == "", f'Expected no errors, got {stderr}'
+    lines = stdout.strip().split('\n')
+    assert len(lines) == 1, f'Expected one line only, got {len(lines)}'
 
 def main():
     print("=" * 50)
@@ -78,6 +87,8 @@ def main():
         test_display_unique_read_from_file()
         test_display_unique_read_from_stdin()
         test_write_unique_lines_to_file()
+        test_display_count_with_lines()
+        test_diplsay_repeated_lines_only()
 
         print("\n" + "=" * 50)
         print("✓ All tests passed!")
