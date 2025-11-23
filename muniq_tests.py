@@ -1,6 +1,7 @@
 """Implement muniq tests"""
 
 import subprocess
+import os
 
 def read_file(filename):
     """Reading from file"""
@@ -47,6 +48,16 @@ def test_display_unique_read_from_stdin():
     lines = stdout.strip().split('\n')
     assert len(lines) == 6, f'Expected 6 lines , got {len(lines)}'
 
+def test_write_unique_lines_to_file():
+    """Write the output to a file"""
+    print("\n[Test 3] Write the output to a file")
+    stdout, stderr, returncode = run_muniq(['test.txt', 'out.txt'])
+    assert returncode == 0, f'Expected returncode = 0, got {returncode}'
+    assert stderr == "", f'Expected no errors, got {stderr}'
+    assert os.path.exists('out.txt') == True, f'Expected creation of a file out.txt'
+    out_content = read_file('out.txt').strip().split('\n')
+    assert len(out_content) == 6, f'Expected 6 lines in output, got {len(out_content)}'
+
 def main():
     print("=" * 50)
     print("Testing muniq")
@@ -55,6 +66,7 @@ def main():
     try:
         test_display_unique_read_from_file()
         test_display_unique_read_from_stdin()
+        test_write_unique_lines_to_file()
 
         print("\n" + "=" * 50)
         print("✓ All tests passed!")
