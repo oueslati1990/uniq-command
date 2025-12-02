@@ -6,6 +6,8 @@ A Python implementation of the Unix `uniq` command.
 
 `muniq` filters adjacent matching lines from input, similar to the standard Unix `uniq` utility. It can display unique lines, count occurrences, and output results to a file or stdout.
 
+This project is built following the [Coding Challenges](https://codingchallenges.fyi/challenges/challenge-uniq) uniq command challenge.
+
 ## Installation
 
 ```bash
