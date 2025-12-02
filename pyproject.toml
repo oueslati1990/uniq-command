@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
 authors = [
-    {name = "Mohamed Oueslati", email = "med.oues@gmail.com"}
+    {name = "Mohamed Oueslati", email = "eng.oueslati.mohamed@gmail.com"}
 ]
 
 [project.scripts]
